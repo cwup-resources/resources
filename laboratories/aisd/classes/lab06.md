@@ -1,0 +1,693 @@
+## Implementacja dynamicznych struktur danych
+
+### Co to są dynamiczne struktury danych?
+
+Dynamiczne struktury danych to takie, które mogą zmieniać swój rozmiar w trakcie działania programu. W przeciwieństwie do struktur statycznych, których rozmiar jest ustalany w momencie kompilacji i nie może być zmieniony, dynamiczne struktury danych mogą rosnąć lub maleć w zależności od potrzeb. Są one zwykle implementowane za pomocą wskaźników i mechanizmów dynamicznego przydzielania pamięci (np. `malloc` w C, `new` w C++ czy automatyczne zarządzanie pamięcią w Pythonie i Javie).
+
+Dynamiczne struktury danych są szczególnie przydatne w sytuacjach, gdzie z góry nie znamy ilości danych, jakie będziemy przechowywać, lub gdy ta ilość może się znacznie zmieniać w trakcie działania programu. Przykładami dynamicznych struktur danych są listy, stosy, kolejki i drzewa.
+
+##### Różnice między strukturami statycznymi a dynamicznymi
+
+1. **Rozmiar i Skalowalność:**
+    - Struktury statyczne (np. tablice) mają ustalony rozmiar w momencie deklaracji i nie mogą się zmieniać podczas działania programu.
+    - Struktury dynamiczne mogą zmieniać swój rozmiar w trakcie działania programu, co umożliwia efektywne zarządzanie pamięcią.
+
+2. **Alokacja Pamięci:**
+    - Struktury statyczne alokują pamięć w czasie kompilacji, co może prowadzić do marnotrawstwa zasobów, jeśli zarezerwujemy więcej pamięci niż jest potrzebne.
+    - Struktury dynamiczne alokują pamięć w czasie wykonania programu, co pozwala na bardziej elastyczne zarządzanie pamięcią, ale wymaga dodatkowych operacji alokacji i dealokacji.
+
+3. **Elastyczność:**
+    - Struktury statyczne są proste w implementacji i szybkie w działaniu, ale brakuje im elastyczności w przypadku zmieniających się wymagań dotyczących pamięci.
+    - Struktury dynamiczne są bardziej elastyczne, ale ich implementacja jest bardziej złożona i mogą być mniej wydajne ze względu na koszty zarządzania pamięcią.
+
+#### Rodzaje Dynamicznych Struktur Danych
+
+##### Listy jednokierunkowe i dwukierunkowe
+
+- **Lista jednokierunkowa (Singly Linked List):**
+    - Każdy element listy (węzeł) zawiera dane oraz wskaźnik do następnego elementu.
+    - Pierwszy element listy nazywany jest głową (head), a ostatni element wskazuje na `null` (brak następnego elementu).
+    - Zalety: prosta w implementacji, efektywne dodawanie/usuwanie elementów na początku listy.
+    - Wady: trudniejsze usuwanie elementów z końca listy, brak bezpośredniego dostępu do elementów.
+
+- **Lista dwukierunkowa (Doubly Linked List):**
+    - Każdy węzeł zawiera dane oraz dwa wskaźniki: jeden do następnego elementu, a drugi do poprzedniego.
+    - Umożliwia łatwe przemieszczanie się w obu kierunkach na liście.
+    - Zalety: łatwe dodawanie/usuwanie elementów zarówno na początku, jak i na końcu listy, bardziej elastyczna nawigacja.
+    - Wady: większe zużycie pamięci (dodatkowy wskaźnik), bardziej złożona implementacja.
+
+##### Stosy
+
+- **Stos (Stack):**
+    - Struktura danych działająca na zasadzie LIFO (Last In, First Out).
+    - Operacje podstawowe to:
+        - `push` (dodanie elementu na szczyt stosu),
+        - `pop` (usunięcie elementu ze szczytu stosu),
+        - `peek` (podejrzenie elementu na szczycie bez usuwania go).
+    - Zalety: prosta implementacja, szybkie operacje dodawania i usuwania elementów.
+    - Wady: ograniczona elastyczność, dostęp do elementów tylko przez szczyt stosu.
+
+##### Kolejki
+
+- **Kolejka (Queue):**
+    - Struktura danych działająca na zasadzie FIFO (First In, First Out).
+    - Operacje podstawowe to:
+        - `enqueue` (dodanie elementu na koniec kolejki),
+        - `dequeue` (usunięcie elementu z początku kolejki),
+        - `front` (podejrzenie pierwszego elementu bez usuwania go).
+    - Zalety: odpowiednia do zarządzania procesami w systemach operacyjnych, prostota implementacji.
+    - Wady: podobne jak w stosie, dostęp do elementów tylko przez koniec i początek kolejki.
+
+- **Kolejka priorytetowa (Priority Queue):**
+    - Elementy są usuwane na podstawie ich priorytetu, niekoniecznie w kolejności dodania.
+    - Często implementowana za pomocą kopców (heaps).
+
+##### Drzewa
+
+- **Drzewo Binarne Wyszukiwania (BST):**
+    - Struktura danych w postaci drzewa, gdzie każdy węzeł ma maksymalnie dwóch potomków.
+    - Wartości w lewym poddrzewie są mniejsze niż węzeł rodzic, a w prawym poddrzewie większe.
+    - Zalety: szybkie operacje wyszukiwania, wstawiania i usuwania elementów.
+    - Wady: może stać się niezrównoważone, co prowadzi do degeneracji drzewa do listy liniowej.
+
+- **Drzewo AVL (AVL Tree):**
+    - Rodzaj BST, które samo się balansuje, aby zapewnić, że wysokość drzewa jest logarytmiczna względem liczby węzłów.
+    - Zalety: zapewnia równoważenie drzewa, co gwarantuje szybkie operacje.
+    - Wady: bardziej skomplikowana implementacja z dodatkowymi operacjami balansowania.
+
+- **B-drzewo (B-Tree):**
+    - Samobalansujące drzewo wyszukiwań ogólnego przeznaczenia, w którym każdy węzeł może mieć wiele potomków.
+    - Używane w systemach baz danych i systemach plików.
+    - Zalety: efektywne zarządzanie dużymi zbiorami danych.
+    - Wady: skomplikowana implementacja.
+
+#### Zalety i Wady Dynamicznych Struktur Danych
+
+##### Zalety:
+
+1. **Elastyczność:**
+    - Dynamiczne struktury danych mogą dynamicznie zmieniać swój rozmiar, co umożliwia efektywne zarządzanie pamięcią w zależności od aktualnych potrzeb programu.
+
+2. **Efektywne Wykorzystanie Pamięci:**
+    - Pamięć jest przydzielana i zwalniana w miarę potrzeb, co minimalizuje marnowanie zasobów i pozwala na lepsze zarządzanie dostępną pamięcią.
+
+3. **Łatwość w Implementacji Złożonych Struktury:**
+    - Dynamiczne struktury danych, takie jak drzewa i grafy, pozwalają na realizację bardziej skomplikowanych operacji i algorytmów, które nie są możliwe do zrealizowania przy użyciu statycznych struktur danych.
+
+##### Wady:
+
+1. **Większa Złożoność Implementacyjna:**
+    - Dynamiczne struktury danych wymagają bardziej skomplikowanych mechanizmów zarządzania pamięcią, co może prowadzić do trudniejszych do znalezienia błędów, takich jak wycieki pamięci czy nieprawidłowe wskaźniki.
+
+2. **Koszty Zarządzania Pamięcią:**
+    - Operacje alokacji i dealokacji pamięci są czasochłonne i mogą wpłynąć na wydajność programu. Konieczne jest również monitorowanie i zarządzanie pamięcią, co wprowadza dodatkowe obciążenie.
+
+3. **Fragmentacja Pamięci:**
+    - Dynamiczne przydzielanie pamięci może prowadzić do fragmentacji pamięci, gdzie wolne bloki pamięci są rozproszone, co utrudnia efektywne jej wykorzystanie.
+
+4. **Potencjalne Problemy ze Stabilnością:**
+    - Błędy w zarządzaniu dynamiczną pamięcią mogą prowadzić do awarii programu, wycieków pamięci i innych trudnych do zdiagnozowania problemów.
+
+
+Dynamiczne struktury danych oferują elastyczność i efektywność, które są nieosiągalne za pomocą struktur statycznych. Choć ich implementacja może być bardziej skomplikowana, a zarządzanie pamięcią wymaga dodatkowej uwagi, korzyści w postaci skalowalności i efektywnego wykorzystania zasobów pamięciowych często przeważają nad wadami. W praktycznych zastosowaniach programistycznych dynamiczne struktury danych są niezbędnym narzędziem do rozwiązywania złożonych problemów algorytmicznych i zarządzania dużymi zbiorami danych.
+
+### Implementacje Dynamicznych Struktur Danych
+
+#### Listy
+
+##### Lista Jednokierunkowa
+
+- **Struktura węzła**
+- **Operacje:** dodawanie, usuwanie, wyszukiwanie elementów
+- **Przykład implementacji w Pythonie:**
+
+```python
+class Node:
+    def __init__(self, data=None):
+        self.data = data  # Przechowywana wartość w węźle
+        self.next = None  # Wskaźnik na następny węzeł
+
+class SinglyLinkedList:
+    def __init__(self):
+        self.head = None  # Początkowo lista jest pusta, więc głowa jest None
+
+    def append(self, data):
+        new_node = Node(data)  # Tworzy nowy węzeł z przekazanymi danymi
+        if not self.head:  # Jeśli lista jest pusta
+            self.head = new_node  # Ustaw nowy węzeł jako głowę listy
+            return
+        last = self.head  # Rozpoczyna iterację od głowy listy
+        while last.next:  # Przechodzi przez całą listę do ostatniego węzła
+            last = last.next
+        last.next = new_node  # Ustawia nowy węzeł jako następny węzeł ostatniego węzła
+    
+    def display(self):
+        current = self.head  # Rozpoczyna iterację od głowy listy
+        while current:  # Iteruje przez całą listę
+            print(current.data, end=" -> ")  # Wypisuje dane z aktualnego węzła
+            current = current.next  # Przechodzi do następnego węzła
+        print("None")  # Wypisuje "None" na końcu listy
+
+# Przykład użycia
+sll = SinglyLinkedList()
+sll.append(1)
+sll.append(2)
+sll.append(3)
+sll.display()  # Output: 1 -> 2 -> 3 -> None
+```
+
+##### Lista Dwukierunkowa
+
+- **Struktura węzła**
+- **Operacje:** dodawanie, usuwanie, wyszukiwanie elementów
+- **Przykład implementacji w Pythonie:**
+
+```python
+```python
+class Node:
+    def __init__(self, data=None):
+        self.data = data  # Przechowywana wartość w węźle
+        self.next = None  # Wskaźnik na następny węzeł
+        self.prev = None  # Wskaźnik na poprzedni węzeł
+
+class DoublyLinkedList:
+    def __init__(self):
+        self.head = None  # Początkowo lista jest pusta, więc głowa jest None
+
+    def append(self, data):
+        new_node = Node(data)  # Tworzy nowy węzeł z przekazanymi danymi
+        if not self.head:  # Jeśli lista jest pusta
+            self.head = new_node  # Ustaw nowy węzeł jako głowę listy
+            return
+        last = self.head  # Rozpoczyna iterację od głowy listy
+        while last.next:  # Przechodzi przez całą listę do ostatniego węzła
+            last = last.next
+        last.next = new_node  # Ustawia nowy węzeł jako następny węzeł ostatniego węzła
+        new_node.prev = last  # Ustawia ostatni węzeł jako poprzedni węzeł nowego węzła
+
+    def prepend(self, data):
+        new_node = Node(data)  # Tworzy nowy węzeł z przekazanymi danymi
+        if not self.head:  # Jeśli lista jest pusta
+            self.head = new_node  # Ustaw nowy węzeł jako głowę listy
+            return
+        self.head.prev = new_node  # Ustaw nowy węzeł jako poprzedni węzeł obecnej głowy
+        new_node.next = self.head  # Ustaw obecna głowę jako następny węzeł nowego węzła
+        self.head = new_node  # Ustaw nowy węzeł jako głowę listy
+
+    def delete(self, key):
+        current = self.head  # Rozpoczyna iterację od głowy listy
+        while current:  # Iteruje przez całą listę
+            if current.data == key:  # Jeśli znajdzie węzeł z podaną wartością
+                if current.prev:  # Jeśli węzeł nie jest głową
+                    current.prev.next = current.next  # Przestaw wskaźnik poprzedniego węzła na następny węzeł
+                if current.next:  # Jeśli węzeł nie jest ostatnim węzłem
+                    current.next.prev = current.prev  # Przestaw wskaźnik następnego węzła na poprzedni węzeł
+                if current == self.head:  # Jeśli węzeł jest głową
+                    self.head = current.next  # Ustaw następny węzeł jako nową głowę
+                return
+            current = current.next  # Przechodzi do następnego węzła
+
+    def search(self, key):
+        current = self.head  # Rozpoczyna iterację od głowy listy
+        while current:  # Iteruje przez całą listę
+            if current.data == key:  # Jeśli znajdzie węzeł z podaną wartością
+                return current  # Zwraca znaleziony węzeł
+            current = current.next  # Przechodzi do następnego węzła
+        return None  # Zwraca None, jeśli nie znajdzie węzła
+
+    def display(self):
+        current = self.head  # Rozpoczyna iterację od głowy listy
+        while current:  # Iteruje przez całą listę
+            print(current.data, end=" <-> ")  # Wypisuje dane z aktualnego węzła
+            current = current.next  # Przechodzi do następnego węzła
+        print("None")  # Wypisuje "None" na końcu listy
+
+# Przykład użycia
+dll = DoublyLinkedList()
+dll.append(1)
+dll.append(2)
+dll.append(3)
+dll.display()  # Output: 1 <-> 2 <-> 3 <-> None
+
+dll.prepend(0)
+dll.display()  # Output: 0 <-> 1 <-> 2 <-> 3 <-> None
+
+dll.delete(2)
+dll.display()  # Output: 0 <-> 1 <-> 3 <-> None
+
+node = dll.search(3)
+if node:
+    print(f"Found node with data: {node.data}")  # Output: Found node with data: 3
+else:
+    print("Node not found")
+```
+#### Stosy
+
+##### Struktura Stosu
+
+- **Zasada LIFO (Last In, First Out)**
+- **Operacje:** push, pop, peek
+- **Przykład implementacji w Pythonie:**
+
+```python
+class Stack:
+    def __init__(self):
+        self.items = []  # Inicjalizuje pustą listę do przechowywania elementów stosu
+
+    def push(self, item):
+        self.items.append(item)  # Dodaje element na szczyt stosu
+
+    def pop(self):
+        if not self.is_empty():  # Sprawdza, czy stos nie jest pusty
+            return self.items.pop()  # Usuwa i zwraca element ze szczytu stosu
+
+    def peek(self):
+        if not self.is_empty():  # Sprawdza, czy stos nie jest pusty
+            return self.items[-1]  # Zwraca element ze szczytu stosu bez usuwania go
+
+    def is_empty(self):
+        return len(self.items) == 0  # Sprawdza, czy stos jest pusty
+
+# Przykład użycia
+stack = Stack()
+stack.push(1)  # Dodaje element 1 na stos
+stack.push(2)  # Dodaje element 2 na stos
+stack.push(3)  # Dodaje element 3 na stos
+print(stack.pop())  # Usuwa i zwraca element ze szczytu stosu (3)
+print(stack.peek())  # Zwraca element ze szczytu stosu bez usuwania go (2)
+```
+
+#### Kolejki
+
+##### Kolejka
+
+- **Zasada FIFO (First In, First Out)**
+- **Operacje:** enqueue, dequeue, front
+- **Przykład implementacji w Pythonie:**
+
+```python
+class Queue:
+    def __init__(self):
+        self.items = []  # Inicjalizuje pustą listę do przechowywania elementów kolejki
+
+    def enqueue(self, item):
+        self.items.insert(0, item)  # Dodaje element na początek listy (koniec kolejki)
+
+    def dequeue(self):
+        if not self.is_empty():  # Sprawdza, czy kolejka nie jest pusta
+            return self.items.pop()  # Usuwa i zwraca element z końca listy (początek kolejki)
+
+    def front(self):
+        if not self.is_empty():  # Sprawdza, czy kolejka nie jest pusta
+            return self.items[-1]  # Zwraca element z końca listy (początek kolejki) bez usuwania go
+
+    def is_empty(self):
+        return len(self.items) == 0  # Sprawdza, czy kolejka jest pusta
+
+# Przykład użycia
+queue = Queue()
+queue.enqueue(1)  # Dodaje element 1 do kolejki
+queue.enqueue(2)  # Dodaje element 2 do kolejki
+queue.enqueue(3)  # Dodaje element 3 do kolejki
+print(queue.dequeue())  # Usuwa i zwraca element z początku kolejki (1)
+print(queue.front())    # Zwraca element z początku kolejki bez usuwania go (2)
+```
+
+##### Kolejka Priorytetowa (Priority Queue)
+
+- **Struktura węzła**
+- **Operacje:** enqueue, dequeue, front
+- **Przykład implementacji w Pythonie za pomocą kopca (heap):**
+
+```python
+import heapq  # Importuje moduł heapq, który zapewnia implementację kopca
+
+class PriorityQueue:
+    def __init__(self):
+        self.heap = []  # Inicjalizuje pustą listę do przechowywania elementów kopca
+
+    def enqueue(self, priority, item):
+        heapq.heappush(self.heap, (priority, item))  # Dodaje element z priorytetem do kopca
+
+    def dequeue(self):
+        if not self.is_empty():  # Sprawdza, czy kolejka nie jest pusta
+            return heapq.heappop(self.heap)[1]  # Usuwa i zwraca element o najwyższym priorytecie (najniższej wartości)
+        raise IndexError("dequeue from an empty priority queue")  # Podnosi wyjątek, jeśli kolejka jest pusta
+
+    def front(self):
+        if not self.is_empty():  # Sprawdza, czy kolejka nie jest pusta
+            return self.heap[0][1]  # Zwraca element o najwyższym priorytecie (najniższej wartości) bez usuwania go
+        raise IndexError("front from an empty priority queue")  # Podnosi wyjątek, jeśli kolejka jest pusta
+
+    def is_empty(self):
+        return len(self.heap) == 0  # Sprawdza, czy kolejka jest pusta
+
+    def display(self):
+        print([item[1] for item in self.heap])  # Wypisuje elementy kolejki bez priorytetów
+
+# Przykład użycia
+pq = PriorityQueue()
+pq.enqueue(3, 'task1')  # Dodaje element 'task1' z priorytetem 3
+pq.enqueue(1, 'task2')  # Dodaje element 'task2' z priorytetem 1
+pq.enqueue(2, 'task3')  # Dodaje element 'task3' z priorytetem 2
+
+pq.display()  # Output: ['task2', 'task1', 'task3']
+
+print(pq.dequeue())  # Output: 'task2' (element z najwyższym priorytetem)
+print(pq.front())    # Output: 'task3' (element z najwyższym priorytetem po usunięciu 'task2')
+pq.display()  # Output: ['task3', 'task1']
+```
+
+#### Drzewa
+
+##### Drzewo Binarne Wyszukiwania (BST)
+
+- **Struktura węzła**
+- **Operacje:** wstawianie, usuwanie, przeszukiwanie
+- **Przykład implementacji w Pythonie:**
+
+```python
+class TreeNode:
+    def __init__(self, key):
+        self.left = None  # Lewy potomek
+        self.right = None  # Prawy potomek
+        self.value = key  # Przechowywana wartość w węźle
+
+class BinarySearchTree:
+    def __init__(self):
+        self.root = None  # Początkowo drzewo jest puste, więc korzeń (root) jest None
+
+    def insert(self, key):
+        if self.root is None:  # Jeśli drzewo jest puste
+            self.root = TreeNode(key)  # Ustaw nowy węzeł jako korzeń drzewa
+        else:
+            self._insert(self.root, key)  # Wstaw klucz do odpowiedniego miejsca w drzewie
+
+    def _insert(self, node, key):
+        if key < node.value:  # Jeśli klucz jest mniejszy niż wartość węzła
+            if node.left is None:  # Jeśli nie ma lewego potomka
+                node.left = TreeNode(key)  # Dodaj nowy węzeł jako lewy potomek
+            else:
+                self._insert(node.left, key)  # Rekurencyjnie wstaw klucz do lewego poddrzewa
+        else:  # Jeśli klucz jest większy lub równy wartości węzła
+            if node.right is None:  # Jeśli nie ma prawego potomka
+                node.right = TreeNode(key)  # Dodaj nowy węzeł jako prawy potomek
+            else:
+                self._insert(node.right, key)  # Rekurencyjnie wstaw klucz do prawego poddrzewa
+
+    def search(self, key):
+        return self._search(self.root, key)  # Rozpocznij wyszukiwanie od korzenia drzewa
+
+    def _search(self, node, key):
+        if node is None or node.value == key:  # Jeśli węzeł jest pusty lub znaleziono klucz
+            return node  # Zwróć węzeł (lub None jeśli nie znaleziono)
+        if key < node.value:  # Jeśli klucz jest mniejszy niż wartość węzła
+            return self._search(node.left, key)  # Rekurencyjnie przeszukaj lewe poddrzewo
+        return self._search(node.right, key)  # Rekurencyjnie przeszukaj prawe poddrzewo
+
+# Przykład użycia
+bst = BinarySearchTree()
+bst.insert(10)  # Dodaj klucz 10
+bst.insert(20)  # Dodaj klucz 20
+bst.insert(5)   # Dodaj klucz 5
+print(bst.search(10))  # Output: <__main__.TreeNode object at ...> (węzeł z wartością 10)
+print(bst.search(15))  # Output: None (klucz 15 nie istnieje w drzewie)
+```
+
+##### Drzewo AVL (AVL Tree)
+
+- **Struktura węzła**
+- **Operacje:** wstawianie, usuwanie, przeszukiwanie
+- **Przykład implementacji w Pythonie:**
+
+```python
+class AVLTreeNode:
+    def __init__(self, key):
+        self.key = key  # Przechowywana wartość w węźle
+        self.left = None  # Lewy potomek
+        self.right = None  # Prawy potomek
+        self.height = 1  # Wysokość węzła (potrzebna do balansowania)
+
+class AVLTree:
+    def __init__(self):
+        self.root = None  # Początkowo drzewo jest puste, więc korzeń (root) jest None
+
+    def insert(self, key):
+        self.root = self._insert(self.root, key)  # Wstawia klucz do drzewa i ustawia nowy korzeń
+
+    def _insert(self, node, key):
+        if not node:  # Jeśli węzeł jest pusty, utwórz nowy węzeł z podanym kluczem
+            return AVLTreeNode(key)
+        
+        if key < node.key:  # Jeśli klucz jest mniejszy niż wartość węzła, idź w lewo
+            node.left = self._insert(node.left, key)
+        else:  # Jeśli klucz jest większy niż wartość węzła, idź w prawo
+            node.right = self._insert(node.right, key)
+
+        # Aktualizuje wysokość węzła
+        node.height = 1 + max(self._get_height(node.left), self._get_height(node.right))
+        
+        # Sprawdza balansowanie węzła
+        balance = self._get_balance(node)
+
+        # Rotacje w przypadku niezbalansowania
+        if balance > 1 and key < node.left.key:  # Lewa-lewa sytuacja
+            return self._right_rotate(node)
+
+        if balance < -1 and key > node.right.key:  # Prawa-prawa sytuacja
+            return self._left_rotate(node)
+
+        if balance > 1 and key > node.left.key:  # Lewa-prawa sytuacja
+            node.left = self._left_rotate(node.left)
+            return self._right_rotate(node)
+
+        if balance < -1 and key < node.right.key:  # Prawa-lewa sytuacja
+            node.right = self._right_rotate(node.right)
+            return self._left_rotate(node)
+
+        return node  # Zwraca (być może zmieniony) węzeł
+
+    def _left_rotate(self, z):
+        y = z.right  # Nowy korzeń po rotacji
+        T2 = y.left  # Tymczasowy węzeł
+        
+        # Wykonuje rotację
+        y.left = z
+        z.right = T2
+        
+        # Aktualizuje wysokości
+        z.height = 1 + max(self._get_height(z.left), self._get_height(z.right))
+        y.height = 1 + max(self._get_height(y.left), self._get_height(y.right))
+        
+        return y  # Zwraca nowy korzeń
+
+    def _right_rotate(self, z):
+        y = z.left  # Nowy korzeń po rotacji
+        T3 = y.right  # Tymczasowy węzeł
+        
+        # Wykonuje rotację
+        y.right = z
+        z.left = T3
+        
+        # Aktualizuje wysokości
+        z.height = 1 + max(self._get_height(z.left), self._get_height(z.right))
+        y.height = 1 + max(self._get_height(y.left), self._get_height(y.right))
+        
+        return y  # Zwraca nowy korzeń
+
+    def _get_height(self, node):
+        if not node:
+            return 0
+        return node.height  # Zwraca wysokość węzła
+
+    def _get_balance(self, node):
+        if not node:
+            return 0
+        return self._get_height(node.left) - self._get_height(node.right)  # Zwraca balans węzła
+
+    def search(self, key):
+        return self._search(self.root, key)  # Rozpoczyna wyszukiwanie od korzenia
+
+    def _search(self, node, key):
+        if not node or node.key == key:  # Jeśli węzeł jest pusty lub znaleziono klucz
+            return node  # Zwraca węzeł (lub None jeśli nie znaleziono)
+        if key < node.key:  # Jeśli klucz jest mniejszy niż wartość węzła
+            return self._search(node.left, key)  # Rekurencyjnie przeszukaj lewe poddrzewo
+        return self._search(node.right, key)  # Rekurencyjnie przeszukaj prawe poddrzewo
+
+    def delete(self, key):
+        self.root = self._delete(self.root, key)  # Usuwa klucz z drzewa i ustawia nowy korzeń
+
+    def _delete(self, node, key):
+        if not node:
+            return node
+        
+        if key < node.key:  # Jeśli klucz jest mniejszy niż wartość węzła, idź w lewo
+            node.left = self._delete(node.left, key)
+        elif key > node.key:  # Jeśli klucz jest większy niż wartość węzła, idź w prawo
+            node.right = self._delete(node.right, key)
+        else:
+            if node.left is None:  # Jeśli nie ma lewego potomka
+                return node.right
+            elif node.right is None:  # Jeśli nie ma prawego potomka
+                return node.left
+
+            temp = self._get_min_value_node(node.right)  # Znajdź najmniejszy węzeł w prawym poddrzewie
+            node.key = temp.key  # Zamień wartość węzła na najmniejszą
+            node.right = self._delete(node.right, temp.key)  # Usuń najmniejszy węzeł w prawym poddrzewie
+
+        # Aktualizuje wysokość węzła
+        node.height = 1 + max(self._get_height(node.left), self._get_height(node.right))
+
+        # Sprawdza balansowanie węzła
+        balance = self._get_balance(node)
+
+        # Rotacje w przypadku niezbalansowania
+        if balance > 1 and self._get_balance(node.left) >= 0:  # Lewa-lewa sytuacja
+            return self._right_rotate(node)
+
+        if balance < -1 and self._get_balance(node.right) <= 0:  # Prawa-prawa sytuacja
+            return self._left_rotate(node)
+
+        if balance > 1 and self._get_balance(node.left) < 0:  # Lewa-prawa sytuacja
+            node.left = self._left_rotate(node.left)
+            return self._right_rotate(node)
+
+        if balance < -1 and self._get_balance(node.right) > 0:  # Prawa-lewa sytuacja
+            node.right = self._right_rotate(node.right)
+            return self._left_rotate(node)
+
+        return node  # Zwraca (być może zmieniony) węzeł
+
+    def _get_min_value_node(self, node):
+        if node is None or node.left is None:
+            return node
+        return self._get_min_value_node(node.left)  # Znajduje najmniejszy węzeł
+
+# Przykład użycia
+avl = AVLTree()
+avl.insert(10)  # Dodaje klucz 10
+avl.insert(20)  # Dodaje klucz 20
+avl.insert(30)  # Dodaje klucz 30
+avl.insert(40)  # Dodaje klucz 40
+avl.insert(50)  # Dodaje klucz 50
+avl.insert(25)  # Dodaje klucz 25
+
+print(avl.search(30))  # Output: <__main__.AVLTreeNode object at ...> (węzeł z wartością 30)
+avl.delete(30)  # Usuwa klucz 30
+print(avl.search(30))  # Output: None (klucz 30 nie istnieje w drzewie)
+```
+
+##### B-drzewo (B-Tree)
+
+- **Struktura węzła**
+- **Operacje:** wstawianie, usuwanie, przeszukiwanie
+- **Przykład implementacji w Pythonie:**
+
+```python
+class BTreeNode:
+    def __init__(self, t, leaf=False):
+        self.t = t  # Minimalny stopień (t)
+        self.keys = []  # Klucze w węźle
+        self.children = []  # Dzieci węzła
+        self.leaf = leaf  # Czy jest liściem?
+
+class BTree:
+    def __init__(self, t):
+        self.root = BTreeNode(t, True)  # Tworzy korzeń drzewa B
+        self.t = t  # Minimalny stopień (t)
+
+    def traverse(self):
+        self._traverse(self.root)  # Rozpoczyna przeszukiwanie od korzenia
+
+    def _traverse(self, node):
+        for i in range(len(node.keys)):  # Iteruje przez klucze w węźle
+            if not node.leaf:  # Jeśli węzeł nie jest liściem, przeszukuje poddrzewa
+                self._traverse(node.children[i])
+            print(node.keys[i], end=" ")  # Wypisuje klucz
+        if not node.leaf:  # Przeszukuje prawe poddrzewo
+            self._traverse(node.children[len(node.keys)])
+
+    def search(self, key):
+        return self._search(self.root, key)  # Rozpoczyna wyszukiwanie od korzenia
+
+    def _search(self, node, key):
+        i = 0
+        while i < len(node.keys) and key > node.keys[i]:  # Szuka odpowiedniego klucza
+            i += 1
+        if i < len(node.keys) and key == node.keys[i]:  # Jeśli klucz został znaleziony
+            return node, i  # Zwraca węzeł i pozycję klucza
+        if node.leaf:  # Jeśli dotarliśmy do liścia, klucz nie istnieje
+            return None
+        return self._search(node.children[i], key)  # Rekurencyjnie przeszukuje odpowiednie poddrzewo
+
+    def insert(self, key):
+        root = self.root
+        if len(root.keys) == 2 * self.t - 1:  # Jeśli korzeń jest pełny
+            new_root = BTreeNode(self.t, False)
+            new_root.children.append(root)
+            self._split_child(new_root, 0)  # Dzieli korzeń
+            self.root = new_root
+        self._insert_non_full(self.root, key)  # Wstawia klucz
+
+    def _insert_non_full(self, node, key):
+        i = len(node.keys) - 1
+        if node.leaf:  # Jeśli węzeł jest liściem
+            node.keys.append(None)
+            while i >= 0 and key < node.keys[i]:  # Szuka odpowiedniej pozycji do wstawienia klucza
+                node.keys[i + 1] = node.keys[i]
+                i -= 1
+            node.keys[i + 1] = key  # Wstawia klucz
+        else:  # Jeśli węzeł nie jest liściem
+            while i >= 0 and key < node.keys[i]:  # Szuka odpowiedniego dziecka do rekurencyjnego wstawienia klucza
+                i -= 1
+            i += 1
+            if len(node.children[i].keys) == 2 * self.t - 1:  # Jeśli dziecko jest pełne
+                self._split_child(node, i)  # Dzieli dziecko
+                if key > node.keys[i]:
+                    i += 1
+            self._insert_non_full(node.children[i], key)  # Rekurencyjnie wstawia klucz
+
+    def _split_child(self, parent, index):
+        t = self.t
+        node = parent.children[index]  # Dziecko, które będzie dzielone
+        new_node = BTreeNode(t, node.leaf)  # Nowy węzeł
+        parent.children.insert(index + 1, new_node)
+        parent.keys.insert(index, node.keys[t - 1])
+        new_node.keys = node.keys[t:(2 * t - 1)]
+        node.keys = node.keys[0:(t - 1)]
+        if not node.leaf:
+            new_node.children = node.children[t:(2 * t)]
+            node.children = node.children[0:t]
+
+# Przykład użycia
+btree = BTree(3)
+keys = [10, 20, 5, 6, 12, 30, 7, 17]
+
+for key in keys:
+    btree.insert(key)
+
+print("Traversal of B-tree:")
+btree.traverse()
+print()
+
+result = btree.search(6)
+if result:
+    print("Key 6 found in B-tree")  # Output: Key 6 found in B-tree
+else:
+    print("Key 6 not found in B-tree")
+
+result = btree.search(15)
+if result:
+    print("Key 15 found in B-tree")
+else:
+    print("Key 15 not found in B-tree")  # Output: Key 15 not found in B-tree
+```
+
+### Zadanie do wykonania 
+
+#### Zadanie 1: Zapoznanie się z przygotowanymi materiałami.
+
+#### Zadanie 2: Implementacja Wybranej Dynamicznej Struktury Danych
+
+Zaproponuj implementację jednej wybranej przez siebie dynamicznej struktury danych w dowolnym języku programowania innym niż Python. Kod zadania należy umieścić w odpowiednim katalogu (lab06) na swoim koncie w repozytorium uczelnianym na platformie Github.
