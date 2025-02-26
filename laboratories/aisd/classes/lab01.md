@@ -6,9 +6,9 @@ Przewidywany plan zajęć kształtuje się następująco:
 * przedstawienie planu tematów i zajęć na cały semestr,
 * przedstawienie sugerowanej literatury przedmiotu.
 
-### Zasady zaliczenia przedmiotu
+### Zasady zaliczenia zajęć laboratoryjnych
 Zajęcia i obecność:
-* w trakcie semestru zostanie zrealizowanych 15 zajęć projektowych,
+* w trakcie semestru zostanie zrealizowanych 15 zajęć laboratoryjnych,
 * obecność na nich jest obowiązkowa,
 * prowadzący akceptuje dwie nieusprawiedliwione nieobecności.
 
@@ -22,7 +22,7 @@ Listy zadań:
 * wykonanie wszystkich list zadań podnosi ocenę końcową o $0.5$,
 * aby zaliczyć kurs, oceny z ocenianych list muszą być pozytywne.
 
-### Przegląd tematów w semestrze
+### Przegląd tematów w semestrze (ilość laboratoriów)
 1. Wprowadzenie do pracowni algorytmów i struktur danych (1 lab)
 2. Budowanie algorytmów z wykładu z użyciem schematów blokowych (1 lab)
 3. Implementacja wybranych algorytmów podanych na wykładzie w języku programowania (3 lab)
