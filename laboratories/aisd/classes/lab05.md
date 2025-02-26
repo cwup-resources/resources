@@ -1,91 +1,280 @@
-## Budowa algorytmów oraz programów rekurencyjnych
+## Porównanie prostych oraz szybkich metod sortowania
 
-### Wprowadzenie do rekurencji
+### Krótkie wprowadzenie do algorytmów sortowania
 
-#### Definicja 
+Algorytmy sortowania są jednymi z fundamentalnych koncepcji w informatyce, stanowiąc podstawę wielu bardziej złożonych procedur obliczeniowych. Sortowanie to proces uporządkowywania elementów w liście lub tablicy zgodnie z określonym kryterium, najczęściej wartością numeryczną lub alfabetyczną. Celem sortowania jest zorganizowanie danych w sposób, który ułatwia ich późniejsze wyszukiwanie, analizę lub wizualizację.
 
-Rekurencja to technika programowania, w której funkcja wywołuje samą siebie jako część swojego wykonania. Każde wywołanie funkcji ma swoje własne zmienne i przestrzeń roboczą, co pozwala na niezależne wykonanie każdego wywołania.
+Sortowanie jest wszechobecne w informatyce, od prostych aplikacji takich jak organizowanie list kontaktów na smartfonie, po bardziej złożone zastosowania jak algorytmy wyszukiwania, optymalizacja baz danych i przetwarzanie danych naukowych. Ponadto, procesy sortowania są często wykorzystywane do testowania i oceny wydajności algorytmów oraz systemów komputerowych.
 
-#### Porównanie rekurencji i iteracji
+### Notacja dużego O w analizie algorytmów sortowania
+Notacja dużego O to sposób opisywania asymptotycznego wzrostu funkcji, stosowany do określania złożoności obliczeniowej algorytmów. Umożliwia zapisanie rzędu wielkości funkcji określającej liczbę operacji dominujących (w przypadku złożoności czasowej) lub ilość wymaganej pamięci (w przypadku złożoności pamięciowej) w zależności od rozmiaru danych wejściowych.
 
-Rekurencja i iteracja to dwie różne metody osiągania powtarzalności w programowaniu. Iteracja polega na użyciu struktur sterujących, takich jak pętle, do wielokrotnego wykonania bloku kodu. Rekurencja natomiast polega na wywoływaniu funkcji przez samą siebie.
+W tej notacji nie podajemy dokładnego wzoru funkcji, lecz wskazujemy jej najważniejszy składnik, pomijając stałe współczynniki. Na przykład funkcję f(n) = 5n² + 20n + 100 można zapisać jako O(n²), ponieważ dla dużych wartości n wpływ pozostałych wyrazów staje się nieistotny. W praktyce oznacza to, że mimo iż dla małych n funkcja o teoretycznie większej złożoności może działać szybciej, to dla dużych n różnice są wyraźnie widoczne.
 
-Chociaż obie metody mogą być używane do rozwiązania tych samych problemów, różnią się pod względem efektywności i zrozumiałości. Rekurencja może być bardziej elegancka i zrozumiała dla niektórych problemów, ale może również prowadzić do większego zużycia pamięci i zasobów procesora.
+Przykładowo, rozważmy funkcje f(n) = 1000n + 2000 i g(n) = n². Pomimo wysokich współczynników w pierwszej funkcji, dla n ≥ 1002 wartości drugiej funkcji zaczynają dominować. Dla n = 10000 f(n) wynosi około 10 milionów, podczas gdy g(n) osiąga 100 milionów, co pokazuje, jak duży wpływ na tempo wzrostu ma główny składnik funkcji.
 
-#### Przykłady funkcji rekurencyjnych: silnia, ciąg Fibonacciego
+<img src="../images/04.png" width="700">
 
-###### Silnia
+Źródło: [https://www.bigocheatsheet.com/](https://www.bigocheatsheet.com/) [dostęp: 2025-02-26]
 
-Silnia liczby n (oznaczana jako n!) to iloczyn wszystkich liczb całkowitych od 1 do n. Funkcja rekurencyjna do obliczania silni wyglądałaby tak:
+### Znaczenie sortowania w informatyce
+
+Znaczenie sortowania w informatyce jest ogromne, ponieważ uporządkowane dane znacznie przyspieszają operacje wyszukiwania i dostępu. Na przykład, posortowana tablica pozwala na stosowanie efektywnego wyszukiwania binarnego, które ma logarytmiczną złożoność czasową, w przeciwieństwie do liniowego wyszukiwania w nieposortowanych danych. W kontekście baz danych, sortowanie jest kluczowe dla efektywnego wykonywania zapytań, które wymagają porządkowania wyników według określonego kryterium.
+
+### Sortowanie proste
+
+#### Wprowadzenie do trzech podstawowych algorytmów: exchangesort, selectionsort, insertionsort
+
+##### Exchangesort (Sortowanie bąbelkowe)
+
+Jest to jeden z najprostszych algorytmów sortowania. Jego idea opiera się na porównywaniu i zamienianiu miejscami sąsiednich elementów, jeśli nie są one w odpowiedniej kolejności. Proces ten jest powtarzany, aż do momentu, kiedy cała tablica zostanie posortowana. Sortowanie bąbelkowe jest łatwe do zrozumienia i implementacji, jednak nie jest zalecane dla dużych zbiorów danych ze względu na swoją niską efektywność.
+
+###### Przykładowa implementacja w Pythonie
 
 ```python
-def silnia(n):
-    if n == 0:
-        return 1
-    else:
-        return n * silnia(n-1)
+def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        swapped = False
+        for j in range(0, n-i-1):
+            if arr[j] > arr[j+1]:
+                # Zamiana elementów
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+                swapped = True
+        # Jeśli nie wykonano żadnej zamiany, lista jest już posortowana
+        if not swapped:
+            break
+    return arr
 ```
 
-###### Ciąg Fibonacciego
+###### Analiza złożoności czasowej
 
-Ciąg Fibonacciego to ciąg liczb, w którym każda liczba jest sumą dwóch poprzednich. Funkcja rekurencyjna do generowania ciągu Fibonacciego wyglądałaby tak:
+- **Najgorszy i średni przypadek:** O(n^2), gdzie n jest liczbą elementów do posortowania. W tych przypadkach, dla każdego z n elementów, algorytm musi przeprowadzić porównania z każdym z pozostałych elementów.
+- **Najlepszy przypadek:** O(n). Występuje to, gdy elementy są już posortowane, a algorytm po pierwszym przejściu przez listę nie wykonuje żadnej zamiany, co oznacza, że dalsze iteracje nie są już potrzebne.
+
+##### Selectionsort (Sortowanie przez wybieranie)
+
+W tym algorytmie, w każdej iteracji wyszukiwany jest najmniejszy (lub największy, w zależności od kierunku sortowania) element i umieszczany na odpowiednim miejscu w tablicy. Algorytm dzieli listę na dwie części: posortowaną i nieposortowaną, przenosząc za każdym razem jeden element do części posortowanej. Podobnie jak sortowanie bąbelkowe, sortowanie przez wybieranie nie jest zalecane dla dużych zbiorów danych.
+
+###### Przykładowa implementacja w Pythonie
 
 ```python
-def fibonacci(n):
-    if n <= 1:
-       return n
+def selection_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        # Znajdowanie indeksu najmniejszego elementu
+        min_index = i
+        for j in range(i+1, n):
+            if arr[j] < arr[min_index]:
+                min_index = j
+        # Zamiana elementu z min_index z pierwszym elementem nieposortowanej części
+        arr[i], arr[min_index] = arr[min_index], arr[i]
+    return arr
+```
+
+###### Analiza złożoności czasowej
+
+- **W każdym przypadku:** O(n^2), gdzie n jest liczbą elementów do posortowania. Niezależnie od początkowego uporządkowania danych, algorytm zawsze musi porównać każdy element z każdym, aby znaleźć najmniejszy element.
+
+##### Insertionsort (Sortowanie przez wstawianie)
+
+W tym algorytmie, elementy są sukcesywnie wybierane z nieposortowanej części listy i wstawiane na odpowiednie miejsce w części już posortowanej. Jest to proces podobny do sposobu, w jaki niektóre osoby sortują karty w ręku podczas gry. Sortowanie przez wstawianie jest bardziej efektywne niż poprzednie dwa algorytmy, szczególnie dla małych lub częściowo posortowanych zbiorów danych.
+
+###### Przykładowa implementacja w Pythonie
+
+```python
+def insertion_sort(arr):
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+        # Przesuwanie elementów większych od key o jedną pozycję w prawo
+        while j >= 0 and key < arr[j]:
+            arr[j + 1] = arr[j]
+            j -= 1
+        # Wstawianie klucza na odpowiednie miejsce
+        arr[j + 1] = key
+    return arr
+```
+
+###### Analiza złożoności czasowej
+
+- **Najgorszy i średni przypadek:** O(n^2), gdzie n jest liczbą elementów do posortowania. W tych przypadkach, algorytm musi porównać każdy element z większością elementów w już posortowanej części listy.
+- **Najlepszy przypadek:** O(n), występuje, gdy lista jest już posortowana, i algorytm musi tylko raz przejrzeć listę, aby to stwierdzić.
+
+### Sortowanie szybkie
+
+#### Wprowadzenie do zaawansowanych algorytmów sortowania
+
+Zaawansowane algorytmy sortowania stanowią kluczowy element informatyki, umożliwiając efektywne przetwarzanie i organizowanie dużych zbiorów danych. Podczas gdy podstawowe metody sortowania, takie jak sortowanie bąbelkowe czy przez wstawianie, są proste do zrozumienia i implementacji, ich wydajność znacząco spada w przypadku większych zbiorów danych. Zaawansowane algorytmy, takie jak heapsort, quicksort i mergesort, zostały opracowane, aby sprostać tym wyzwaniom, oferując znacznie lepszą wydajność, szczególnie w kontekście dużych lub złożonych zbiorów danych.
+
+#### Krótkie omówienie znaczenia efektywnego sortowania w informatyce
+
+Efektywne sortowanie danych ma fundamentalne znaczenie w wielu dziedzinach informatyki, od optymalizacji algorytmów wyszukiwania po analizę danych i zarządzanie bazami danych. Szybkie i skuteczne sortowanie pozwala na lepszą organizację danych, co z kolei ułatwia ich analizę, wyszukiwanie oraz wydajne przetwarzanie. W kontekście algorytmów, sortowanie wpływa na wydajność kluczowych operacji, takich jak wyszukiwanie, scalanie zbiorów danych i wielu innych operacji, które są niezbędne w codziennej praktyce informatycznej.
+
+#### Przedstawienie trzech algorytmów: heapsort, quicksort, mergesort
+
+##### Heapsort 
+
+Heapsort to efektywny algorytm sortowania, który wykorzystuje strukturę danych zwaną kopcem (heap) do organizacji elementów. Kopiec to specjalny rodzaj pełnego drzewa binarnego, gdzie wartości węzłów spełniają regułę kopca: każdy węzeł jest większy (lub mniejszy) od swoich dzieci. W przypadku heapsortu najczęściej wykorzystuje się kopiec typu max-heap, gdzie wartość każdego węzła jest większa niż wartości jego dzieci.
+
+Jest algorytmem sortowania, który wykorzystuje strukturę kopca binarnego do organizowania danych. Jest to efektywna metoda sortowania, która oferuje stałą złożoność czasową O(n log n) we wszystkich przypadkach, czyniąc ją wyjątkowo stabilną i przewidywalną pod względem wydajności.
+
+###### Algorytm Heapsort - główne etapy
+
+Algorytm Heapsort składa się z dwóch głównych etapów, które razem zapewniają efektywne sortowanie danych:
+
+1. Budowanie kopca
+
+- **Proces:** Rozpoczyna się od środkowych elementów listy wejściowej i przechodzi w kierunku jej początku.
+- **Cel:** Przywrócenie własności kopca dla każdego węzła. W przypadku max-heapa, każdy rodzic ma wartość większą niż jego dzieci. Dla min-heapa, każdy rodzic ma wartość mniejszą niż jego dzieci.
+- **Mechanizm:** Dla każdego węzła sprawdzane jest, czy spełnia on warunki kopca. Jeśli nie, następuje przekształcenie struktury tak, aby własności kopca zostały przywrócone.
+
+2. Sortowanie
+
+- **Proces:** Po zbudowaniu kopca, algorytm iteracyjnie usuwa największy element z kopca (korzeń) i umieszcza go na końcu listy.
+- **Mechanizm przywracania kopca:** Po usunięciu elementu, kopiec musi zostać przywrócony. Algorytm *heapify* jest stosowany do korzenia, aby zapewnić, że największy element znajdzie się na górze kopca.
+- **Iteracja:** Proces jest powtarzany - usuwanie korzenia, umieszczanie na końcu, przywracanie struktury kopca - aż wszystkie elementy zostaną usunięte z kopca i umieszczone w odpowiedniej kolejności w liście wyjściowej, co skutkuje posortowaną listą.
+
+Te dwa etapy, budowanie kopca i sortowanie, są kluczowe dla zrozumienia i efektywnego zaimplementowania algorytmu Heapsort.
+
+###### Przykładowa implementacja w Pythonie
+
+```python
+def heapify(arr, n, i):
+    largest = i
+    left = 2 * i + 1
+    right = 2 * i + 2
+
+    if left < n and arr[largest] < arr[left]:
+        largest = left
+
+    if right < n and arr[largest] < arr[right]:
+        largest = right
+
+    if largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]
+        heapify(arr, n, largest)
+
+def heapsort(arr):
+    n = len(arr)
+
+    for i in range(n // 2 - 1, -1, -1):
+        heapify(arr, n, i)
+
+    for i in range(n - 1, 0, -1):
+        arr[i], arr[0] = arr[0], arr[i]
+        heapify(arr, i, 0)
+
+    return arr
+```
+
+###### Analiza złożoności czasowej
+
+Złożoność czasowa algorytmu Heapsort wynosi O(n log n) dla najlepszego, średniego i najgorszego przypadku. Jest to wynik kombinacji procesu budowania kopca (O(n)) oraz procesu sortowania (O(n log n)), gdzie n jest liczbą elementów do posortowania.
+
+##### Quicksort
+
+Quicksort to jeden z najbardziej znanych i szeroko stosowanych algorytmów sortowania, działający na zasadzie "dziel i zwyciężaj". Kluczowym elementem algorytmu jest wybór tzw. pivota, czyli elementu odniesienia, względem którego sortowane są pozostałe elementy listy. Lista jest dzielona na dwie podlisty: elementy mniejsze od pivota i elementy większe od pivota. Te podlisty są następnie sortowane rekurencyjnie, co prowadzi do całkowitego posortowania listy.
+
+###### Przykładowa implementacja w Pythonie
+
+```python
+def quicksort(arr):
+    if len(arr) <= 1:
+        return arr
     else:
-       return (fibonacci(n-1) + fibonacci(n-2))
+        pivot = arr[len(arr) // 2]
+        less = [x for x in arr if x < pivot]
+        equal = [x for x in arr if x == pivot]
+        greater = [x for x in arr if x > pivot]
+        return quicksort(less) + equal + quicksort(greater)
 ```
 
-### Budowa Programów Rekurencyjnych
+W tej implementacji, pivot jest wybierany jako element środkowy listy. Następnie lista jest dzielona na trzy podlisty: elementy mniejsze od pivota, równe pivotowi i większe od pivota. Podlisty mniejsze i większe są sortowane rekurencyjnie, a cała posortowana lista jest zwracana poprzez konkatenację posortowanych podlist i listy zawierającej pivota.
 
-#### Warunek zakończenia rekurencji
+###### Analiza złożoności czasowej Quicksorta
 
-Każda funkcja rekurencyjna musi mieć warunek zakończenia, który zapobiega nieskończonemu wywoływaniu samej siebie. Bez warunku zakończenia, funkcja rekurencyjna kontynuowałaby wywoływanie samej siebie nieskończenie, co prowadziłoby do przekroczenia limitu stosu.
+- **Najlepszy i średni przypadek:** O(n log n), gdzie `n` jest liczbą elementów do posortowania. Taka złożoność jest osiągana, gdy w każdym kroku podziału lista dzielona jest na dwie mniej więcej równe części, co pozwala na efektywne wykorzystanie strategii dziel i zwyciężaj.
 
-#### Zagrożenia związane z rekurencją: przekroczenie limitu stosu, złożoność obliczeniowa
+- **Najgorszy przypadek:** O(n^2). Do takiej sytuacji może dojść, gdy wybrany pivot jest każdorazowo najmniejszym lub największym elementem z listy, co prowadzi do niekorzystnego podziału, gdzie jedna z nowych podlist jest pusta, a druga zawiera resztę elementów. W takim przypadku, każdy kolejny krok podziału redukuje rozmiar problemu tylko o jeden, co prowadzi do kwadratowej złożoności czasowej.
 
-Rekurencja, chociaż potężna, niesie ze sobą pewne ryzyko. Główne zagrożenia związane z rekurencją to:
-
-- *Przekroczenie limitu stosu:* Każde wywołanie funkcji, w tym wywołania rekurencyjne, zużywa pewną ilość pamięci stosu. Jeśli funkcja rekurencyjna wywołuje samą siebie zbyt wiele razy bez osiągnięcia warunku zakończenia, może dojść do przekroczenia limitu stosu, co prowadzi do błędu.
-- *Złożoność obliczeniowa:* Niektóre funkcje rekurencyjne mogą mieć wysoką złożoność obliczeniową, co oznacza, że mogą być wolne lub nieefektywne przy dużych danych wejściowych.
-
-#### Techniki optymalizacji rekurencji: memoizacja, rekurencja ogonowa
-
-Istnieją techniki, które mogą pomóc zminimalizować niektóre z zagrożeń związanych z rekurencją:
-
-- *Memoizacja:* Jest to technika, która polega na zapisywaniu wyników funkcji w pamięci, aby uniknąć niepotrzebnego powtarzania tych samych obliczeń. Jest szczególnie przydatna w funkcjach rekurencyjnych, które wielokrotnie wywołują samą siebie z tymi samymi argumentami.
-- *Rekurencja ogonowa:* Jest to forma rekurencji, w której wywołanie rekurencyjne jest ostatnią operacją w funkcji. Niektóre języki programowania (takie jak Scheme i Scala) mogą optymalizować rekurencję ogonową, przekształcając ją w iterację i eliminując ryzyko przekroczenia limitu stosu. W Pythonie jednak rekurencja ogonowa nie jest optymalizowana i może prowadzić do przekroczenia limitu stosu.
-
-### Zadania do wykonania 
-
-#### Zadanie nr.1 
-
-Napisz rekurencyjną wersję algorytmu binSearch, dokonaj analizy złożoności czasowej i pamięciowej i porównaj z wersją nierekurencyjną.
-
-```python 
-def binSearch(arr, target):
-    left, right = 0, len(arr) - 1
-    while left <= right:
-        mid = (left + right) // 2
-        if arr[mid] == target:
-            return mid  # target found
-        elif arr[mid] < target:
-            left = mid + 1
-        else:
-            right = mid - 1
-    return -1  # target is missing
+Ta analiza podkreśla znaczenie odpowiedniego wyboru pivota w algorytmie Quicksort oraz wpływ tego wyboru na ogólną wydajność sortowania.
 
 
-arr = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21]
-target = 15
+##### Mergesort
 
-index = binSearch(arr, target)
-if index != -1:
-    print(f"Element {target} znaleziony na pozycji {index}")
-else:
-    print(f"Element {target} nie znaleziony w liście")
+Mergesort jest algorytmem sortowania, który wykorzystuje metodę "dziel i zwyciężaj". Działa poprzez podział listy na dwie równe części, rekurencyjne sortowanie każdej z nich, a następnie scalanie posortowanych podlist w jedną uporządkowaną listę. Jest to podejście rekurencyjne, które skutecznie redukuje złożoność problemu sortowania na każdym poziomie podziału.
+
+###### Przykładowa implementacja w Pythonie
+
+```python
+def merge_sort(arr):
+    if len(arr) > 1:
+        mid = len(arr) // 2
+        L = arr[:mid]
+        R = arr[mid:]
+
+        merge_sort(L)
+        merge_sort(R)
+
+        i = j = k = 0
+
+        while i < len(L) and j < len(R):
+            if L[i] < R[j]:
+                arr[k] = L[i]
+                i += 1
+            else:
+                arr[k] = R[j]
+                j += 1
+            k += 1
+
+        while i < len(L):
+            arr[k] = L[i]
+            i += 1
+            k += 1
+
+        while j < len(R):
+            arr[k] = R[j]
+            j += 1
+            k += 1
+
+    return arr
 ```
 
-W tym kodzie, arr to posortowana lista, a target to element, którego szukamy. Funkcja zwraca indeks elementu target w liście arr jeśli jest obecny, w przeciwnym razie zwraca -1. Algorytm działa poprzez ciągłe dzielenie listy na dwie połówki, aż znajdzie szukany element lub do momentu, gdy lista zostanie całkowicie przeszukana.
+###### Analiza złożoności czasowej 
+
+Mergesort ma złożoność czasową O(n log n) we wszystkich przypadkach, niezależnie od początkowego uporządkowania danych. Ta efektywność wynika z podziału listy na połowy i linearnego scalania, co zapewnia logarytmiczne zmniejszenie liczby porównań na każdym poziomie rekurencji.
+
+##### Sortowanie przez zliczanie
+Sortowanie przez zliczanie to algorytm sortowania, który polega na zliczaniu wystąpień poszczególnych elementów w liście i tworzeniu nowej listy, która zawiera elementy w odpowiedniej kolejności. Jest to algorytm stabilny, co oznacza, że zachowuje kolejność elementów o tej samej wartości. Sortowanie przez zliczanie jest efektywne dla zbiorów danych, w których elementy mają ograniczony zakres wartości, co pozwala na efektywne zliczanie wystąpień.
+
+###### Przykładowa implementacja w Pythonie
+
+```python
+def counting_sort(arr):
+    if not arr:
+        return arr
+    
+    # Znalezienie maksymalnej wartości w tablicy
+    max_value = max(arr)
+    
+    # Tworzenie tablicy pomocniczej (count)
+    count = [0] * (max_value + 1)
+    
+    # Zliczanie wystąpień każdej liczby
+    for num in arr:
+        count[num] += 1
+    
+    # Tworzenie posortowanej tablicy
+    sorted_arr = []
+    for i in range(len(count)):
+        sorted_arr.extend([i] * count[i])
+    
+    return sorted_arr
+```
+###### Analiza złożoności czasowej
+Złożoność czasowa sortowania przez zliczanie wynosi O(n + k), gdzie n to liczba elementów do posortowania, a k to zakres wartości elementów. W przypadku, gdy zakres wartości jest znacznie mniejszy niż liczba elementów, sortowanie przez zliczanie jest bardzo efektywne, ponieważ nie zależy od liczby elementów, a jedynie od zakresu wartości.
+
+### Listy zadań
+1. [Lista nr 3](../excercises/list03.md)
+2. [Lista nr 4](../excercises/list04.md)
