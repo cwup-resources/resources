@@ -23,13 +23,13 @@ Listy zadań:
 * aby zaliczyć kurs, oceny z ocenianych list muszą być pozytywne.
 
 ### Przegląd tematów w semestrze (ilość laboratoriów)
-1. Wprowadzenie do pracowni architektury komputerów (1 lab)
-2. Wstęp do programowania w języku asembler (2 lab)
-3. Instrukcje przesyłania danych, instrukcje arytmetyczne, rejestr znaczników (3 lab)
-4. Sterowanie przebiegiem programu (3 lab)
-5. Procedury (2 lab)
-6. Łączenie programu napisanego w języku wysokopoziomowym z procedurami w asemblerze (2 lab)
-7. Współpraca z urządzeniami zewnętrznymi (2 lab)
+1. Wprowadzenie do pracowni architektury komputerów
+2. Wstęp do programowania w języku asembler 
+3. Instrukcje przesyłania danych, instrukcje arytmetyczne, rejestr znaczników 
+4. Sterowanie przebiegiem programu
+5. Procedury 
+6. Łączenie programu napisanego w języku wysokopoziomowym z procedurami w asemblerze 
+7. Współpraca z urządzeniami zewnętrznymi
 8. Podsumowanie semestru 
 
 ### Literatura
