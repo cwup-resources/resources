@@ -8,7 +8,7 @@ Przewidywany plan zajęć kształtuje się następująco:
 
 ### Zasady zaliczenia zajęć laboratoryjnych
 Zajęcia i obecność:
-* w trakcie semestru zostanie zrealizowanych 15 zajęć laboratoryjnych,
+* w trakcie semestru zostanie zrealizowanych 8 zajęć laboratoryjnych,
 * obecność na nich jest obowiązkowa,
 * prowadzący akceptuje dwie nieusprawiedliwione nieobecności.
 
