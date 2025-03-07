@@ -20,6 +20,7 @@
 ---
 
 ## **3. Migracje w Laravel**
+Przykłady kodu w repozytorium: [example-laravel](https://github.com/cwup-resources/example-laravel/tree/main/database).
 ### **3.1 Tworzenie migracji**
 - Generowanie nowej migracji:
   ```bash
@@ -75,15 +76,9 @@
 
 ---
 
-## **4. Migracje w Doctrine (Symfony)**
-### **4.1 Instalacja migracji w Symfony**
-- Instalacja Doctrine Migrations:
-  ```bash
-  composer require doctrine/doctrine-migrations-bundle
-  ```
-- Konfiguracja w `doctrine.yaml` (jeśli wymagane).
-
-### **4.2 Tworzenie migracji**
+## **4. Migracje w Doctrine (Symfony/Slim)**
+### **4.1 Tworzenie migracji**
+Przykłady kodu w repozytorium: [example-slim](https://github.com/cwup-resources/example-slim/blob/main/src/Domain/Entity/User/User.php).
 - **Definiowanie encji (ORM)**:
   ```php
   #[ORM\Entity]
@@ -106,8 +101,38 @@
   ```bash
   php bin/console doctrine:migrations:migrate
   ```
+  
+### **4.2 Przykład pliku migracji**
+Przykłady kodu w repozytorium: [example-slim](https://github.com/cwup-resources/example-slim/tree/main/migrations).
+  ```php
+  public function up(Schema $schema): void
+  {
+      $this->addSql('CREATE TABLE users (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
+  }
 
-### **4.3 Cofanie migracji**
+  public function down(Schema $schema): void
+  {
+      $this->addSql('DROP TABLE users');
+  }
+  ```
+
+### **4.3 Plik mapowania encji za pomocą XML**
+Przykłady kodu w repozytorium: [example-slim](https://github.com/cwup-resources/example-slim/tree/main/src/Infrastructure/Persistence/Doctrine/Mapping).
+```xml
+    <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                        http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+        <entity name="User" table="users">
+            <id name="id" type="integer" column="id">
+                <generator strategy="AUTO"/>
+            </id>
+            <field name="name" type="string" length="255" nullable="false"/>
+        </entity>
+    </doctrine-mapping>
+```
+
+### **4.4 Cofanie migracji**
 - **Wyświetlenie listy migracji**:
   ```bash
   php bin/console doctrine:migrations:status
@@ -126,18 +151,10 @@
 | **Definiowanie schematu** | W kodzie migracji | W encjach (ORM) |
 | **Uruchamianie migracji** | `php artisan migrate` | `php bin/console doctrine:migrations:migrate` |
 | **Cofanie migracji** | `migrate:rollback` | `migrations:execute --down` |
-| **Dodatkowe funkcje** | Seeder’y, Factory | Tworzenie na podstawie ORM |
 
 ---
 
-## **6. Zadania dla studentów**
-1. **Ćwiczenie 1**: Utworzenie migracji w Laravelu dla tabeli `products` i dodanie pola `price` do istniejącej tabeli.
-2. **Ćwiczenie 2**: W Symfony/Doctrine utworzenie encji `Order` oraz wygenerowanie migracji.
-3. **Ćwiczenie 3**: Cofnięcie ostatniej migracji i ponowne jej uruchomienie w obu technologiach.
-
----
-
-## **7. Podsumowanie**
+## **6. Podsumowanie**
 - Migracje są kluczowe w zarządzaniu zmianami w bazach danych.
 - Laravel oferuje ręczne definiowanie migracji, podczas gdy Doctrine generuje je na podstawie ORM.
 - Możliwość rollbacków zwiększa bezpieczeństwo zmian.
