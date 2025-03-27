@@ -36,4 +36,4 @@ Listy zadań:
 * Janusz Biernat, *Architektura komputerów*, 2005
 * Krzysztof Wojtuszkiewicz *Urządzenia techniki komputerowej 1. Jak działa komputer*, 2018
 * Krzysztof Wojtuszkiewicz *Urządzenia techniki komputerowej 2. Urządzenia peryferyjne i interfejsy*, 2012
-* Eugeniusz Wróbel *Praktyczny kurs asemblera", 2012
+* Eugeniusz Wróbel *Praktyczny kurs asemblera*, 2012
