@@ -36,5 +36,3 @@ Napisz rekurencyjną wersję algorytmu sortowania bąbelkowego, dokonaj analizy 
 
 ### Zadanie nr. 4
 Napisz rekurencyjną wersję algorytmu sortowania przez scalanie, dokonaj analizy złożoności czasowej i pamięciowej i porównaj z wersją nierekurencyjną.
-
-
