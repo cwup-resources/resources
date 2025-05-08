@@ -8,7 +8,7 @@ W asemblerze ARM procedury działają podobnie jak funkcje w językach wysokiego
 
 * **`LR`** (Link Register, R14) – przechowuje adres powrotu z procedury.
 
-* **`BL labe`l** (Branch with Link) – wykonuje skok do etykiety `label` i zapisuje w LR adres instrukcji następującej po `BL` (adres powrotu).
+* **`BL label`** (Branch with Link) – wykonuje skok do etykiety `label` i zapisuje w LR adres instrukcji następującej po `BL` (adres powrotu).
 
 * **`BX LR`** (Branch and Exchange) – powoduje skok pod adres zapisany w `LR`, co realizuje powrót z procedury.
 
