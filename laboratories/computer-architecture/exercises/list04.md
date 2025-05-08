@@ -39,8 +39,8 @@ Polecenie: Napisz procedurę `cmp_test`, która:
 Cel: Wykorzystanie instrukcji warunkowych w procedurze.
 Polecenie: Zaimplementuj `max2`, która:
 
-- w R0 i R1 otrzymuje dwie liczby,
+* w R0 i R1 otrzymuje dwie liczby,
 
-- porównuje je, ustawiając w R0 większą z nich,
+* porównuje je, ustawiając w R0 większą z nich,
 
-- zwraca sterowanie do `_start`.
+* zwraca sterowanie do `_start`.
