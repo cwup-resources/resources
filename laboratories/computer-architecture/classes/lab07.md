@@ -28,7 +28,7 @@ W tym przykładzie zapalimy diody LED na płytce DE1-SoC, korzystając z CPUlato
     .global main
 main:
     LDR r0, =0xFF200000  @ Załaduj adres rejestru LED do r0
-    MOV r1, #0xFF        @ Ustaw r1 na 0xFF (wszystkie diody ON)
+    MOV r1, #0x3FF       @ Ustaw r1 na 0x3FF (wszystkie 10 diod ON)
     STR r1, [r0]        @ Zapisz wartość do rejestru LED
     B main              @ Powtarzaj w nieskończoność
 ```
