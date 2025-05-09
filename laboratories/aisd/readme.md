@@ -8,7 +8,7 @@ Strona kursu dla semestru IV na kierunku Informatyka na Wydziale Nauk Techniczny
 1. [Implementacja oraz porównanie złożoności czasowej algorytmów sortowania](./classes/lab05-7.md)
 1. [Budowa algorytmów oraz programów rekurencyjnych](./classes/lab08.md)
 1. [Implementacja dynamicznych struktur danych](./classes/lab09-12.md)
-1. Wykonanie zadań z zakresu geometrii obliczeniowej oraz teorii grafów (w przygotowaniu)
+1. [Wykonanie zadań z zakresu geometrii obliczeniowej oraz teorii grafów](./classes/lab13-15.md)
 1. Podsumowanie semestru
 
 ### Listy zadań
@@ -17,4 +17,5 @@ Strona kursu dla semestru IV na kierunku Informatyka na Wydziale Nauk Techniczny
 3. [Lista zadań nr. 3](excercises/list03.md)
 4. [Lista zadań nr. 4](excercises/list04.md)
 5. [Lista zadań nr. 5](excercises/list05.md)
-5. [Lista zadań nr. 6](excercises/list06.md)
+6. [Lista zadań nr. 6](excercises/list06.md)
+7. [Lista zadań nr. 7](excercises/list07.md)
