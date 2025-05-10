@@ -1,4 +1,4 @@
-## Zadanie laboratoryjne 
+## Zadanie laboratoryjne - lista nr 6
 
 ### Opis programu
 
