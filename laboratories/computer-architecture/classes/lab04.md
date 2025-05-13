@@ -39,17 +39,20 @@ skip:
 
 *Przykład:*
 ```asm
-*Przykład:*
-```asm
 .text
 .global _start
 _start:
-    MOV R0, #5        @ Ustaw R0 na 5
-    B skip            @ Skok bezwarunkowy do etykiety 'skip'
-    MOV R0, #10       @ Ta instrukcja zostanie pominięta
-skip:
-    MOV R1, #1        @ Ustaw R1 na 1
-    B .               @ Pętla nieskończona (zakończenie programu)
+    MOV   R0, #5         @ przygotuj argument w R0
+    BL    my_function    @ skok do podprogramu, LR ← adres powrotu
+    MOV   R1, R0         @ po powrocie z funkcji wynik w R0 → R1
+    B     end            @ zakończ program
+
+my_function:
+    ADD   R0, R0, #10    @ podprogram: dodaje 10 do R0
+    BX    LR             @ powrót do miejsca wywołania (PC ← LR)
+
+end:
+    B     end            @ zatrzymaj się w pętli
 ```
 
 #### Instrukcja BX (Branch eXchange – skok do adresu w rejestrze)
@@ -62,17 +65,15 @@ skip:
 
 *Przykład:*
 ```asm
-*Przykład:*
-```asm
 .text
-.global _start
-_start:
-    MOV R0, #5        @ Ustaw R0 na 5
-    B skip            @ Skok bezwarunkowy do etykiety 'skip'
-    MOV R0, #10       @ Ta instrukcja zostanie pominięta
-skip:
-    MOV R1, #1        @ Ustaw R1 na 1
-    B .               @ Pętla nieskończona (zakończenie programu)
+.global call_and_return
+call_and_return:
+    BL    subroutine     @ wywołanie podprogramu
+    B     .              @ nieskończona pętla po powrocie
+
+subroutine:
+    MOV   R0, #42        @ jakiś kod
+    BX    LR             @ powrót do miejsca wywołania
 ```
 
 #### Instrukcja CMP – Compare
