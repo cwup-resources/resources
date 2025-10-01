@@ -8,7 +8,7 @@ Warunki zaliczenia kształtują się następująco:
 
 - stworzenie aplikacji mobilnej , gdzie studenci muszą zaplanować prace, zaprojektować, zaimplementować i wdrożyć system; 
   w ramach tego projektu, zbudowana ma zostać aplikacja mobilna, która będzie konsumować API udostępnione przez system;
-- projekt jest wykonywany w tych samych grupach, co na zajęciach **Projekt zespołowy**;
+- projekt jest wykonywany w grupach 2-3 osobowych;
 - skład grup oraz link do publicznego repozytorium lub repozytoriów projektu powinny zostać zdefiniowane na początku
   semestru i być zgłoszone prowadzącemu zajęcia najpóźniej do drugich zajęć; w razie niedotrzymania terminu, grupa otrzyma modyfikator $-0.5$ do oceny końcowej za projekt;
 - część projektowa związana z aplikacją mobilną powinna być zrealizowana w natywnym języku programowania dla platformy
