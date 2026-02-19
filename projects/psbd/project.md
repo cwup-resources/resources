@@ -58,7 +58,7 @@ Projekt obejmuje **wszystkie etapy cyklu życia systemu bazodanowego**, z nacisk
 ### **3.1 Środowisko uruchomieniowe**
 - **Baza danych:** PostgreSQL lub MySQL (do wyboru),
 - **Framework/Język:** kwestia preferencji (Laravel, Symfony, Django, inne),
-- **Docker:** Projekt powinien być **uruchamialny w kontenerze**.
+- **Docker:** Projekt powinien być **uruchamialny w kontenerach**.
 
 ### **3.2 Struktura projektu**
 - **Kod źródłowy** powinien być wersjonowany w Git.
@@ -83,9 +83,9 @@ Projekt obejmuje **wszystkie etapy cyklu życia systemu bazodanowego**, z nacisk
 ---
 
 ## **5. Terminy**
-1. **Zgłoszenie tematu projektu:** do 4 zajęć w semestrze (08.03.2025)
+1. **Zgłoszenie tematu projektu:** do 4 zajęć w semestrze
 2. **Konsultacje z prowadzącym:** między 5 a 14 zajęciami w semestrze
-3. **Oddanie projektu:** maksymalnie na ostatnich zajęciach w semestrze (07.06.2025)
+3. **Oddanie projektu:** maksymalnie na ostatnich zajęciach w semestrze
 
 ---
 
